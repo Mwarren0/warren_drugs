@@ -1,5 +1,61 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+--testing
+local spawnedCocaLeaf = 0
+local CocaPlants = {}
+local isPickingUp, isProcessing, inCokeField = false, false, false 
 
+local function LoadAnimationDict(dict)
+    RequestAnimDict(dict)
+    while not HasAnimDictLoaded(dict) do
+        RequestAnimDict(dict)
+        Wait(1)
+    end
+end
+
+CreateThread(function()
+--coke
+    exports['qb-target']:AddTargetModel("h4_prop_bush_cocaplant_01", {
+        options = {
+            {
+                type = "client",
+                event = "warren_drugs:pickCocaLeaves",
+                icon = "fas fa-leaf",
+                label = Lang:t("target.pickCocaLeaves"),
+            },
+        },
+        distance = 4.0
+    })
+    
+
+--weed
+    exports['qb-target']:AddTargetModel("mw_weed_plant", {
+        options = {
+            {
+                type = "client",
+                event = "warren_drugs:pickWeed",
+                icon = "fas fa-envira",
+                label = Lang:t("target.pickWeed"),
+            },
+        },
+        distance = 4.0
+    })
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--below this (done)
 function teleport(coord, heading,shouldIgnoreWait)
 	DoScreenFadeOut(500)
     if shouldIgnoreWait == nil then
